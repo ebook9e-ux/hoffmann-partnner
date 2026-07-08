@@ -1,0 +1,84 @@
+/* src/styles/print.css
+   Two print modes, both triggered by window.print():
+
+   1) SECTION PRINT - PrintableSection sets
+        document.body.setAttribute('data-print-target', sectionId)
+      before calling print(). A JS-injected style tag then hides every
+      [data-print-section] except the matching one (see utils/print.js,
+      since CSS attribute selectors can't compare two different
+      attributes' values against each other directly).
+
+   2) FULL DASHBOARD PRINT - the "Print full dashboard" button in
+      Topbar calls window.print() WITHOUT setting data-print-target.
+      Nothing is hidden by section rules, so the whole page prints -
+      sidebar/topbar/buttons are removed via .no-print, and the
+      PrintHeader becomes visible as a letterhead.
+*/
+
+@media screen {
+  .print-header { display: none; }
+}
+
+@media print {
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+
+  .no-print,
+  .sidebar,
+  .topbar,
+  .filters-bar,
+  .print-btn,
+  .lang-switcher {
+    display: none !important;
+  }
+
+  .shell { display: block !important; }
+  .content { width: 100% !important; }
+  .page { padding: 0 !important; max-width: none !important; }
+
+  .panel, .kpi-card, .printable-section {
+    background: #fff !important;
+    border: 1px solid #ddd !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+  }
+
+  .kpi-value, .panel-title, .section-title, .topbar-title { color: #111 !important; }
+  .kpi-sub, .section-meta, .cell-muted, .legend-item { color: #555 !important; }
+
+  .status-badge.Active { background: #e6f7ef !important; color: #0a7a4d !important; border: 1px solid #0a7a4d; }
+  .status-badge.Medium { background: #fff6e0 !important; color: #8a6100 !important; border: 1px solid #8a6100; }
+  .status-badge.Inactive { background: #fdeaec !important; color: #a3121f !important; border: 1px solid #a3121f; }
+
+  .tone-green-text { color: #0a7a4d !important; }
+  .tone-red-text { color: #a3121f !important; }
+  .tone-yellow-text { color: #8a6100 !important; }
+  .tone-blue-text { color: #1d4ed8 !important; }
+
+  .data-table th { color: #555 !important; border-color: #ccc !important; }
+  .data-table td { color: #111 !important; border-color: #eee !important; }
+  .data-table tbody tr:hover { background: none !important; }
+
+  .alert-card.critical { background: #fdeaec !important; color: #a3121f !important; border-color: #a3121f !important; }
+  .alert-card.warning { background: #fff6e0 !important; color: #8a6100 !important; border-color: #8a6100 !important; }
+
+  .print-header {
+    display: block !important;
+    margin-bottom: 18px;
+  }
+  .print-header-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; color: #111; }
+  .print-header-logo { display: block !important; }
+  .print-header-sep { color: #999; }
+  .print-header-customer { font-size: 14px; font-weight: 700; color: #333; }
+  .print-header-title { font-size: 13px; color: #333; margin-top: 4px; }
+  .print-header-meta { font-size: 10px; color: #666; margin-top: 2px; }
+  .print-header-rule { border-top: 2px solid #111; margin-top: 10px; }
+
+  .printable-section-head { display: flex; justify-content: space-between; align-items: center; }
+
+  @page { margin: 14mm; }
+}
