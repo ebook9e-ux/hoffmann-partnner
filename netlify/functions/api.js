@@ -10,9 +10,7 @@ const express = require("express");
 const app = express();
 
 app.get("/", (req, res) => {
-  res.json({
-    message: "API is working"
-  });
+  res.json({ message: "API working" });
 });
 
 module.exports.handler = serverless(app);
