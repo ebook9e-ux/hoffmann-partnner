@@ -2,13 +2,11 @@
   command = "cd frontend && npm install && npm run build"
   publish = "frontend/dist"
 
-[functions]
-  directory = "netlify/functions"
-
 [[redirects]]
   from = "/api/*"
-  to = "/.netlify/functions/api/:splat"
+  to = "https://timber-latina-queue-guaranteed.trycloudflare.com/api/:splat"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/*"
