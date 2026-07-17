@@ -4,7 +4,7 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "https://mold-contractor-low-harbour.trycloudflare.com/api/:splat"
+ to = "http://49.13.116.168/api/:splat"
   status = 200
   force = true
 
